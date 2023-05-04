@@ -5,7 +5,7 @@ const DodajDuznika = ({ setDodajDuznika }) => {
     <main className="h-full w-full justify-center flex items-center bg-black bg-opacity-20">
       <article className="h-[80%] w-[80%] relative bg-white flex justify-center items-center">
         <button
-          className="absolute top-2 left-2"
+          className="absolute top-2 left-2 z-20"
           onClick={() => setDodajDuznika(false)}
         >
           <svg
