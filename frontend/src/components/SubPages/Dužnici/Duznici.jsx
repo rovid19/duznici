@@ -25,7 +25,6 @@ const Duznici = () => {
     }
   }, [duznik]);
 
-  console.log(editDuznika);
   return (
     <main className="h-full w-full ">
       <header className="h-[8%] bg-cyan-200 p-2 flex">

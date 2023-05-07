@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const DodajDugModal = ({ setDodajDug, trigger, setTrigger, duznik }) => {
+const DodajDugModal = ({
+  setDodajDug,
+  trigger,
+  setTrigger,
+  duznik,
+  dodajDug,
+}) => {
   const [imeProizvoda, setImeProizvoda] = useState(null);
   const [sifraProizvoda, setSifraProizvoda] = useState(null);
+  const [cijenaProizvoda, setCijenaProizvoda] = useState(null);
 
   function handleDodajDug(e) {
     e.preventDefault();
@@ -12,12 +19,14 @@ const DodajDugModal = ({ setDodajDug, trigger, setTrigger, duznik }) => {
         imeProizvoda,
         sifraProizvoda,
         id: duznik._id,
+        cijenaProizvoda,
       })
       .then(() => {
         setTrigger(!trigger);
         setDodajDug(false);
       });
   }
+
   return (
     <article className="h-full w-full  relative flex justify-center items-center">
       {" "}
@@ -29,7 +38,7 @@ const DodajDugModal = ({ setDodajDug, trigger, setTrigger, duznik }) => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="w-6 h-6"
+          class="w-12 h-12"
         >
           <path
             fill-rule="evenodd"
@@ -56,6 +65,16 @@ const DodajDugModal = ({ setDodajDug, trigger, setTrigger, duznik }) => {
               className="bg-gray-300 w-full h-full rounded-md text-3xl text-center"
               onChange={(e) => setSifraProizvoda(e.target.value)}
             />
+          </label>
+          <label className="w-full flex h-[10%] mt-1 justify-center relative">
+            <input
+              placeholder="Cijena proizvoda"
+              type="Number"
+              step="0.01"
+              className="bg-gray-300 w-full h-full rounded-md text-3xl text-center"
+              onChange={(e) => setCijenaProizvoda(e.target.value)}
+            />
+            <span className="absolute right-6 text-4xl top-4">€</span>
           </label>
         </fieldset>
         <button className="bg-slate-600 text-white p-2 rounded-md h-[8%] w-[35%] hover:bg-red-500 transition-all ">
