@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "./Layout.jsx";
 import { Route, Routes } from "react-router";
 import Duznici from "../src/components/SubPages/Dužnici/Duznici.jsx";
@@ -13,6 +13,7 @@ axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 const App = () => {
+  useEffect(() => {}, []);
   return (
     <div>
       <Routes>

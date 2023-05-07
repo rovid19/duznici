@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DodajDuznika from "./DodajDuznika";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import axios from "axios";
+import EditDuznika from "./editDuznika.jsx";
 const Duznici = () => {
   const [dodajDuznika, setDodajDuznika] = useState(false);
+  const [editDuznika, setEditDuznika] = useState(false);
+  const [duznik, setDuznik] = useState(null);
+  const [popisDuznika, setPopisDuznika] = useState(null);
+  const [trigger, setTrigger] = useState(false);
+  const div = useRef();
+
+  useEffect(() => {
+    axios.get("/api/kiosk/popis-duznika").then(({ data }) => {
+      setPopisDuznika(data);
+      const container = document.querySelectorAll(".sekcija");
+      div.current = container;
+    });
+  }, [trigger]);
+
+  useEffect(() => {
+    if (duznik) {
+      setEditDuznika(true);
+    }
+  }, [duznik]);
+
+  console.log(editDuznika);
   return (
     <main className="h-full w-full ">
       <header className="h-[8%] bg-cyan-200 p-2 flex">
@@ -31,16 +54,62 @@ const Duznici = () => {
         </form>
         <nav className="h-full w-[40%]  flex justify-end">
           <button
-            onClick={() => setDodajDuznika(true)}
-            className="h-full w-[30%] bg-white rounded-md text-base"
+            onClick={() => {
+              setDodajDuznika(true);
+              div.current[0].scrollTop = 0;
+            }}
+            className="h-full w-[30%] bg-white rounded-md text-base hover:bg-slate-600 hover:text-white transition-all"
           >
             Dodaj dužnika
           </button>
         </nav>
       </header>
 
-      <section className="w-full h-[92%]">
-        {dodajDuznika && <DodajDuznika setDodajDuznika={setDodajDuznika} />}
+      <section
+        className={
+          editDuznika || dodajDuznika
+            ? "w-full h-[92%] overflow-hidden relative sekcija"
+            : "w-full h-[92%] overflow-scroll relative sekcija"
+        }
+      >
+        {editDuznika && (
+          <EditDuznika
+            setEditDuznika={setEditDuznika}
+            trigger={trigger}
+            setTrigger={setTrigger}
+            duznik={duznik}
+          />
+        )}
+        {dodajDuznika && (
+          <DodajDuznika
+            setDodajDuznika={setDodajDuznika}
+            trigger={trigger}
+            setTrigger={setTrigger}
+          />
+        )}
+
+        {popisDuznika &&
+          popisDuznika.map((duznik, index) => {
+            return (
+              <article
+                key={index}
+                onClick={() => {
+                  setDuznik(duznik);
+                  div.current[0].scrollTop = 0;
+                }}
+                className={
+                  index === 0
+                    ? "h-[20%] w-full bg-gray-50 cursor-pointer hover:bg-slate-600 hover:text-white transition-all"
+                    : "h-[20%] mt-2 w-full bg-gray-50 cursor-pointer hover:bg-slate-600 hover:text-white transition-all"
+                }
+              >
+                <div className="h-full w-[22%] text-5xl p-2 flex gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 ">
+                  <h1>{duznik.ime}</h1>
+                  <h1>{duznik.prezime}</h1>
+                </div>
+              </article>
+            );
+          })}
       </section>
     </main>
   );

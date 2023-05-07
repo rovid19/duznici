@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import path from "path";
 import authRoutes from "../backend/Routes/auth.js";
+import kioskRoutes from "../backend/Routes/kiosk.js";
 
 const app = express();
 const PORT = 5000;
@@ -25,3 +26,4 @@ app.use(express.json());
 app.listen(PORT);
 
 app.use("/api/auth", authRoutes);
+app.use("/api/kiosk", kioskRoutes);

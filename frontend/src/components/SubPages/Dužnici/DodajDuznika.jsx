@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const DodajDuznika = ({ setDodajDuznika }) => {
+const DodajDuznika = ({ setDodajDuznika, setTrigger, trigger }) => {
+  const [ime, setIme] = useState(null);
+  const [prezime, setPrezime] = useState(null);
+
+  function handleDodajDuznika(e) {
+    e.preventDefault();
+    axios.post("/api/kiosk/dodaj-duznika", { ime, prezime }).then(() => {
+      setTrigger(!trigger);
+      setDodajDuznika(false);
+    });
+  }
+
   return (
-    <main className="h-full w-full justify-center flex items-center bg-black bg-opacity-20">
+    <main className="h-full w-full justify-center flex items-center bg-black bg-opacity-20 absolute top-0 left-0">
       <article className="h-[80%] w-[80%] relative bg-white flex justify-center items-center">
         <button
           className="absolute top-2 left-2 z-20"
@@ -21,15 +33,23 @@ const DodajDuznika = ({ setDodajDuznika }) => {
             />
           </svg>
         </button>
-        <form className="h-full w-full fl">
+        <form onSubmit={handleDodajDuznika} className="h-full w-full fl">
           <fieldset className="fl w-full h-full relative">
             <label>
-              <input placeholder="Ime" className="bg-gray-50 text-center" />
+              <input
+                placeholder="Ime"
+                className="bg-gray-50 text-center"
+                onChange={(e) => setIme(e.target.value)}
+              />
             </label>
             <label>
-              <input placeholder="Prezime" className="bg-gray-50 text-center" />
+              <input
+                placeholder="Prezime"
+                className="bg-gray-50 text-center"
+                onChange={(e) => setPrezime(e.target.value)}
+              />
             </label>
-            <button className="absolute bottom-10 bg-cyan-200 rounded-md text-white w-[30%] h-[10%] text-2xl">
+            <button className="absolute bottom-10 bg-cyan-200 rounded-md text-white w-[30%] h-[10%] text-2xl ">
               Dodaj
             </button>
           </fieldset>

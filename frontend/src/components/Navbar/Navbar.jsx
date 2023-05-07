@@ -17,7 +17,7 @@ const Navbar = () => {
   console.log(korisnik);
 
   return (
-    <div className="h-full w-full bg-gray-100">
+    <div className="h-full w-full bg-white">
       <header className="w-full h-full">
         <div className="h-[20%] flex items-center justify-center">
           <h1 className="text-5xl">LEVI</h1>
