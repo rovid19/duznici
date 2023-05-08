@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { dodajKorsnika } from "../../app/features/korisnik";
+import { dodajKorisnika } from "../../app/features/korisnik";
 import axios from "axios";
 const Navbar = () => {
   const korisnik = useSelector((state) => state.korisnik.value);
@@ -9,7 +9,7 @@ const Navbar = () => {
 
   function handleLogout() {
     axios.post("/api/auth/logout-user").then(() => {
-      dispatch(dodajKorsnika(null));
+      dispatch(dodajKorisnika(null));
       navigate("/");
     });
   }
@@ -20,7 +20,9 @@ const Navbar = () => {
     <div className="h-full w-full bg-white">
       <header className="w-full h-full">
         <div className="h-[20%] flex items-center justify-center">
-          <h1 className="text-5xl">LEVI</h1>
+          <Link to="/">
+            <h1 className="text-5xl">LEVI</h1>
+          </Link>
         </div>
         <nav className="h-[80%] relative">
           <ul className="h-[20%] fl text-2xl">

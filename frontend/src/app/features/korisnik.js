@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: {},
+  value: null,
 };
 
 export const ulogiraniKorisnikSlice = createSlice({
   name: "korisnik",
   initialState,
   reducers: {
-    dodajKorsnika: (state, action) => {
+    dodajKorisnika: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { dodajKorsnika } = ulogiraniKorisnikSlice.actions;
+export const { dodajKorisnika } = ulogiraniKorisnikSlice.actions;
 
 export default ulogiraniKorisnikSlice.reducer;

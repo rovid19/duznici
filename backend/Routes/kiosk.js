@@ -7,6 +7,9 @@ import {
   brisanjeDuga,
   dodajJedan,
   oduzmiJedan,
+  obrisiDuznika,
+  crnaLista,
+  setTotal,
 } from "../Controllers/kiosk.js";
 
 const router = express.Router();
@@ -24,5 +27,11 @@ router.post("/brisanje-duga", brisanjeDuga);
 router.post("/dodaj-jedan", dodajJedan);
 
 router.post("/oduzmi-jedan", oduzmiJedan);
+
+router.post("/obrisi-duznika", obrisiDuznika);
+
+router.post("/crna-lista", crnaLista);
+
+router.post("/set-total", setTotal);
 
 export default router;

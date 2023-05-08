@@ -6,14 +6,26 @@ import Nabava from "../src/components/SubPages/Nabava/Nabava.jsx";
 import Prijava from "./components/SubPages/Prijava/Prijava.jsx";
 import Registracija from "./components/SubPages/Prijava/Registracija.jsx";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { dodajKorisnika } from "../src/app/features/korisnik.js";
 
 axios.defaults.baseURL = "http://localhost:5000";
 //axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
 axios.defaults.withCredentials = true;
 
 const App = () => {
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+  const korisnik = useSelector((state) => state.korisnik.value);
+
+  console.log(korisnik);
+  useEffect(() => {
+    axios
+      .get("/api/auth/get-user?timestamp=" + new Date().getTime())
+      .then(({ data }) => {
+        dispatch(dodajKorisnika(data));
+      });
+  }, []);
+  console.log(korisnik);
   return (
     <div>
       <Routes>

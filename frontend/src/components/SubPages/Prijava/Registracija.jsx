@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { dodajKorsnika } from "../../../app/features/korisnik";
+import { dodajKorisnika } from "../../../app/features/korisnik";
 
 const Registracija = () => {
   const [username, setUsername] = useState();
@@ -17,7 +17,7 @@ const Registracija = () => {
       .post("/api/auth/create-user", { username, password })
       .then(({ data }) => {
         navigate("/");
-        dispatch(dodajKorsnika(data));
+        dispatch(dodajKorisnika(data));
       });
   }
   return (

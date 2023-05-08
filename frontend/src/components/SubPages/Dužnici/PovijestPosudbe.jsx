@@ -29,18 +29,13 @@ const PovijestPosudbe = ({ index, dugDuznika, setPovijestPosudbe }) => {
                 : "w-full h-[18%] mt-2 bg-gray-50 flex"
             }
           >
-            <div className="h-full w-[50%] p-4 flex items-center justify-start text-4xl border-r-2 border-gray-300 border-opacity-30 relative">
+            <div className="h-full w-[70%] p-4 flex items-center justify-start text-4xl border-r-2 border-gray-300 border-opacity-30 relative">
               <h2 className="absolute top-2 left-2 text-sm text-gray-300">
                 Datum posudbe:
               </h2>
               <h1>{posudba.datum}</h1>
             </div>
-            <div className="h-full w-[20%] p-4 flex items-center justify-start text-4xl border-r-2 border-gray-300 border-opacity-30 relative">
-              <h2 className="absolute top-2 left-2 text-sm text-gray-300">
-                Posuđena količina
-              </h2>
-              <h1>1</h1>
-            </div>
+
             <div className="h-full w-[30%] p-4 flex items-center justify-start text-4xl border-r-2 border-gray-300 border-opacity-30 relative">
               <h2 className="absolute top-2 left-2 text-sm text-gray-300">
                 Radnik

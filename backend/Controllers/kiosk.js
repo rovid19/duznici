@@ -15,7 +15,10 @@ export const dodajDuznika = async (req, res) => {
 };
 
 export const popisDuznika = async (req, res) => {
-  const sviDuznici = await Duznik.find();
+  const sviDuznici = await Duznik.find().populate(
+    "popisProizvoda",
+    "ime sifra kolicina povijestPosudbe cijena"
+  );
 
   res.json(sviDuznici);
 };
@@ -95,4 +98,40 @@ export const oduzmiJedan = async (req, res) => {
 
   await proizvod.save();
   res.json(proizvod);
+};
+
+export const obrisiDuznika = async (req, res) => {
+  const { id } = req.body;
+
+  const obrisiDuznika = await Duznik.findByIdAndDelete(id);
+
+  res.json("ok");
+};
+export const crnaLista = async (req, res) => {
+  const { id } = req.body;
+
+  const duznik = await Duznik.findById(id);
+  const { blacklist } = duznik;
+  const kontraVal = !blacklist;
+  duznik.set({
+    blacklist: kontraVal,
+  });
+
+  await duznik.save();
+
+  res.json(duznik);
+};
+
+export const setTotal = async (req, res) => {
+  const { total, id } = req.body;
+
+  const duznik = await Duznik.findById(id);
+
+  duznik.set({
+    totalDug: total,
+  });
+
+  await duznik.save();
+
+  res.json(duznik);
 };

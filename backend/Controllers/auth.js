@@ -40,3 +40,16 @@ export const loginUser = async (req, res) => {
 export const logoutUser = (req, res) => {
   res.cookie("token", "").json("done");
 };
+
+export const getUser = async (req, res) => {
+  const { token } = req.cookies;
+
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, async (err, data) => {
+      if (err) throw err;
+      const korisnik = await User.findById(data.id);
+
+      res.json(korisnik);
+    });
+  }
+};

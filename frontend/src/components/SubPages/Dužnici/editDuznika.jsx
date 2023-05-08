@@ -5,7 +5,13 @@ import Loader from "../../../assets/svg-loaders/three-dots.svg";
 import PovijestPosudbe from "./povijestPosudbe";
 import { useSelector } from "react-redux";
 
-const editDuznika = ({ setEditDuznika, trigger, setTrigger, duznik }) => {
+const editDuznika = ({
+  setEditDuznika,
+  trigger,
+  setTrigger,
+  duznik,
+  setDuznik,
+}) => {
   const [dodajDug, setDodajDug] = useState(false);
   const [dugDuznika, setDugDuznika] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
@@ -49,6 +55,10 @@ const editDuznika = ({ setEditDuznika, trigger, setTrigger, duznik }) => {
         return (total += item.cijena * item.put);
       });
       setUkupnoDugovanje(total);
+
+      axios
+        .post("/api/kiosk/set-total", { total, id: duznik._id })
+        .then(() => setTrigger(!trigger));
     }
   }, [dugDuznika]);
 
@@ -73,7 +83,7 @@ const editDuznika = ({ setEditDuznika, trigger, setTrigger, duznik }) => {
           .post("/api/kiosk/dodaj-jedan", {
             idProizvoda: id2Proizvoda,
             formatiraniDate,
-            radnik: korisnik.ime,
+            radnik: korisnik.username,
           })
           .then(() => {
             setTrigger(!trigger);
@@ -91,19 +101,35 @@ const editDuznika = ({ setEditDuznika, trigger, setTrigger, duznik }) => {
       }
     }
   }
-  console.log(dugDuznika);
+
+  function obrisiDuznika() {
+    axios.post("/api/kiosk/obrisi-duznika", { id: duznik._id }).then(() => {
+      setEditDuznika(false);
+      setTrigger(!trigger);
+    });
+  }
+
+  function crnaLista() {
+    axios.post("/api/kiosk/crna-lista", { id: duznik._id }).then(({ data }) => {
+      setTrigger(!trigger);
+      setDuznik(data);
+    });
+  }
   return (
     <div className="w-full h-full bg-white absolute top-0 left-0 flex">
       {" "}
       <button
-        className="absolute top-2 right-2 z-20"
-        onClick={() => setEditDuznika(false)}
+        className="absolute top-2 right-2 z-50"
+        onClick={() => {
+          setEditDuznika(false);
+          setDuznik(null);
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="w-12 h-12 text-slate-600 hover:text-red-500 transition-all"
+          class="w-12 h-12 text-slate-600 hover:text-red-500 transition-all "
         >
           <path
             fill-rule="evenodd"
@@ -123,13 +149,24 @@ const editDuznika = ({ setEditDuznika, trigger, setTrigger, duznik }) => {
           <li className="  w-[95%] h-[7%] mb-2">
             <button
               className="bg-white rounded-md h-full w-full hover:bg-slate-600 hover:text-white transition-all"
+              onClick={() => crnaLista()}
+            >
+              Crna lista
+            </button>
+          </li>
+          <li className="  w-[95%] h-[7%] mb-2">
+            <button
+              className="bg-white rounded-md h-full w-full hover:bg-slate-600 hover:text-white transition-all"
               onClick={() => setDodajDug(true)}
             >
               Dodaj dug
             </button>
           </li>
           <li className="mb-1 w-[95%] h-[7%]">
-            <button className="bg-slate-600 text-white rounded-md h-full w-full hover:bg-red-500 hover:text-white transition-all ">
+            <button
+              className="bg-slate-600 text-white rounded-md h-full w-full hover:bg-red-500 hover:text-white transition-all "
+              onClick={obrisiDuznika}
+            >
               Obriši dužnika
             </button>
           </li>
@@ -141,9 +178,12 @@ const editDuznika = ({ setEditDuznika, trigger, setTrigger, duznik }) => {
             ? "w-[90%] h-full relative "
             : povijestPosudbe
             ? "w-[90%] h-full relative "
-            : "w-[90%] h-[90%] relative overflow-scroll"
+            : "w-[90%] h-[90%] relative overflow-scroll scrollbar-hide"
         }
       >
+        {duznik.blacklist && (
+          <div className="h-full w-full bg-red-500 bg-opacity-50 absolute top-0 left-0 z-30"></div>
+        )}
         {povijestPosudbe && (
           <PovijestPosudbe
             index={index}
