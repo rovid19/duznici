@@ -10,6 +10,7 @@ import {
   obrisiDuznika,
   crnaLista,
   setTotal,
+  sviProizvodi,
 } from "../Controllers/kiosk.js";
 
 const router = express.Router();
@@ -33,5 +34,7 @@ router.post("/obrisi-duznika", obrisiDuznika);
 router.post("/crna-lista", crnaLista);
 
 router.post("/set-total", setTotal);
+
+router.get("/svi-proizvodi", sviProizvodi);
 
 export default router;

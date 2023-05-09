@@ -12,7 +12,7 @@ const Duznici = () => {
   const [popisDuznika, setPopisDuznika] = useState(null);
   const [popisDuznika2, setPopisDuznika2] = useState(null);
   const [skrati, setSkrati] = useState(null);
-
+  const [savDug, setSavDug] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [pretrazi, setPretrazi] = useState("");
   const div = useRef();
@@ -21,12 +21,16 @@ const Duznici = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("/api/kiosk/popis-duznika").then(({ data }) => {
-      setPopisDuznika(data);
-      setPopisDuznika2(data);
-      const container = document.querySelectorAll(".sekcija");
-      div.current = container;
-    });
+    axios
+      .get("/api/kiosk/popis-duznika")
+      .then(({ data }) => {
+        setPopisDuznika(data);
+        setPopisDuznika2(data);
+
+        const container = document.querySelectorAll(".sekcija");
+        div.current = container;
+      })
+      .then(() => totalCounter());
   }, [trigger]);
   // pretrazi funkcija
   useEffect(() => {
@@ -66,6 +70,17 @@ const Duznici = () => {
     }
   }, [korisnik]);
 
+  useEffect(() => {
+    if (popisDuznika) {
+      let total = 0;
+
+      popisDuznika.forEach((item) => (total += item.totalDug));
+      console.log(total);
+
+      setSavDug(total);
+    }
+  }, [trigger, popisDuznika]);
+
   return (
     <main className="h-full w-full ">
       <header className="h-[8%] bg-cyan-200 p-2 flex">
@@ -95,16 +110,23 @@ const Duznici = () => {
             </label>
           </fieldset>
         </form>
-        <nav className="h-full w-[40%]  flex justify-end">
-          <button
-            onClick={() => {
-              setDodajDuznika(true);
-              div.current[0].scrollTop = 0;
-            }}
-            className="h-full w-[30%] bg-white rounded-md text-base hover:bg-slate-600 hover:text-white transition-all"
-          >
-            Dodaj dužnika
-          </button>
+        <nav className="h-full w-[40%] flex ">
+          <ul className="w-full h-full flex">
+            <li className="w-[50%] h-full flex justify-left ml-2 items-center bg-white rounded-md p-4">
+              <h1 className="text-xl">Ukupno: {savDug}€</h1>
+            </li>
+            <li className="w-[50%] flex justify-end ">
+              <button
+                onClick={() => {
+                  setDodajDuznika(true);
+                  div.current[0].scrollTop = 0;
+                }}
+                className="h-full w-[70%] bg-white rounded-md text-base hover:bg-slate-600 hover:text-white transition-all"
+              >
+                Dodaj dužnika
+              </button>
+            </li>
+          </ul>
         </nav>
       </header>
 
@@ -165,7 +187,7 @@ const Duznici = () => {
                   })}
                 </div>
                 <div className="h-full w-[16%] text-5xl p-2 flex gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 ">
-                  <h1>{duznik.totalNumber}</h1>
+                  <h1>{duznik.totalDug}€</h1>
                 </div>
               </article>
             );

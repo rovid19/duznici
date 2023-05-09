@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const DodajDugModal = ({
@@ -11,6 +11,7 @@ const DodajDugModal = ({
   const [imeProizvoda, setImeProizvoda] = useState(null);
   const [sifraProizvoda, setSifraProizvoda] = useState(null);
   const [cijenaProizvoda, setCijenaProizvoda] = useState(null);
+  const [proizvodi, setProizvodi] = useState(null);
 
   function handleDodajDug(e) {
     e.preventDefault();
@@ -26,6 +27,12 @@ const DodajDugModal = ({
         setDodajDug(false);
       });
   }
+
+  useEffect(() => {
+    axios
+      .get("/api/kiosk/svi-proizvodi")
+      .then(({ data }) => setProizvodi(data));
+  }, []);
 
   return (
     <article className="h-full w-full  relative flex justify-center items-center">

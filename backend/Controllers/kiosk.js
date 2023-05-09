@@ -2,7 +2,7 @@ import User from "../Models/user.js";
 import jwt from "jsonwebtoken";
 import Duznik from "../Models/duznik.js";
 import Proizvod from "../Models/proizvod.js";
-
+import Product from "../Models/product.js";
 export const dodajDuznika = async (req, res) => {
   const { ime, prezime } = req.body;
 
@@ -27,6 +27,12 @@ export const dodajDug = async (req, res) => {
   const { imeProizvoda, sifraProizvoda, id, cijenaProizvoda } = req.body;
 
   const noviProizvod = await Proizvod.create({
+    ime: imeProizvoda,
+    sifra: sifraProizvoda,
+    cijena: cijenaProizvoda,
+  });
+
+  const newProduct = Product.create({
     ime: imeProizvoda,
     sifra: sifraProizvoda,
     cijena: cijenaProizvoda,
@@ -101,7 +107,14 @@ export const oduzmiJedan = async (req, res) => {
 };
 
 export const obrisiDuznika = async (req, res) => {
-  const { id } = req.body;
+  const { id, array } = req.body;
+
+  array.forEach((item) => {
+    async function handleBrisanje() {
+      const obrisiProizvod = await Proizvod.findByIdAndDelete(item);
+    }
+    handleBrisanje();
+  });
 
   const obrisiDuznika = await Duznik.findByIdAndDelete(id);
 
@@ -134,4 +147,10 @@ export const setTotal = async (req, res) => {
   await duznik.save();
 
   res.json(duznik);
+};
+
+export const sviProizvodi = async (req, res) => {
+  const svi = await Product.find();
+
+  res.json(svi);
 };

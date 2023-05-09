@@ -56,9 +56,7 @@ const editDuznika = ({
       });
       setUkupnoDugovanje(total);
 
-      axios
-        .post("/api/kiosk/set-total", { total, id: duznik._id })
-        .then(() => setTrigger(!trigger));
+      axios.post("/api/kiosk/set-total", { total, id: duznik._id });
     }
   }, [dugDuznika]);
 
@@ -103,10 +101,18 @@ const editDuznika = ({
   }
 
   function obrisiDuznika() {
-    axios.post("/api/kiosk/obrisi-duznika", { id: duznik._id }).then(() => {
-      setEditDuznika(false);
-      setTrigger(!trigger);
-    });
+    let array = [...duznik.popisProizvoda];
+    let map = array.map((item) => item._id);
+
+    axios
+      .post("/api/kiosk/obrisi-duznika", {
+        id: duznik._id,
+        array: [...map],
+      })
+      .then(() => {
+        setEditDuznika(false);
+        setTrigger(!trigger);
+      });
   }
 
   function crnaLista() {
@@ -115,6 +121,7 @@ const editDuznika = ({
       setDuznik(data);
     });
   }
+  console.log(duznik);
   return (
     <div className="w-full h-full bg-white absolute top-0 left-0 flex">
       {" "}
