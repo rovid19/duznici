@@ -9,8 +9,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { dodajKorisnika } from "../src/app/features/korisnik.js";
 
-axios.defaults.baseURL = "http://localhost:5000";
-//axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
+//axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://kioskapi.onrender.com";
 axios.defaults.withCredentials = true;
 
 const App = () => {
