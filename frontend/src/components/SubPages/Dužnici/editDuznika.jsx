@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DodajDugModal from "./DodajDugModal";
 import axios from "axios";
 import Loader from "../../../assets/svg-loaders/three-dots.svg";
-import PovijestPosudbe from "./PovijestPosudbe.jsx";
+import PovijestPosudbe from "./PovijestPosudbe";
 import { useSelector } from "react-redux";
 
 const editDuznika = ({
