@@ -31,12 +31,15 @@ export const dodajDug = async (req, res) => {
     sifra: sifraProizvoda,
     cijena: cijenaProizvoda,
   });
-
-  const newProduct = Product.create({
-    ime: imeProizvoda,
-    sifra: sifraProizvoda,
-    cijena: cijenaProizvoda,
-  });
+  const nadiProizvod = await Product.findOne({ ime: imeProizvoda });
+  if (nadiProizvod) {
+  } else {
+    const newProduct = Product.create({
+      ime: imeProizvoda,
+      sifra: sifraProizvoda,
+      cijena: cijenaProizvoda,
+    });
+  }
 
   const duznik = await Duznik.findById(id);
 

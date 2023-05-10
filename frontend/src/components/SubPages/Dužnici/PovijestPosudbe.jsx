@@ -2,7 +2,7 @@ import React from "react";
 
 const PovijestPosudbe = ({ index, dugDuznika, setPovijestPosudbe }) => {
   return (
-    <div className="w-full h-full absolute top-0 left-0 bg-white z-30 overflow-scroll">
+    <div className="w-full h-full absolute top-0 left-0 bg-white z-40 overflow-scroll scrollbar-hide">
       <button
         className="absolute top-2 right-2 z-20"
         onClick={() => setPovijestPosudbe(false)}

@@ -12,6 +12,9 @@ const DodajDugModal = ({
   const [sifraProizvoda, setSifraProizvoda] = useState(null);
   const [cijenaProizvoda, setCijenaProizvoda] = useState(null);
   const [proizvodi, setProizvodi] = useState(null);
+  const [sugestije, setSugestije] = useState(null);
+  const [pretrazi, setPretrazi] = useState("");
+  const [templ, setTempl] = useState(null);
 
   function handleDodajDug(e) {
     e.preventDefault();
@@ -34,8 +37,38 @@ const DodajDugModal = ({
       .then(({ data }) => setProizvodi(data));
   }, []);
 
+  function handleSuggestions(text) {
+    let prevVal = pretrazi;
+    let currentVal = text;
+
+    if (currentVal.length < prevVal.length) {
+      setSugestije(null);
+    }
+
+    setPretrazi(currentVal);
+  }
+
+  useEffect(() => {
+    if (pretrazi) {
+      let array = [...proizvodi];
+      array = array.filter((product) => {
+        const regex = new RegExp(`${pretrazi}`, "gi");
+        return product.ime.match(regex);
+      });
+      setSugestije(array);
+    }
+  }, [pretrazi]);
+
+  useEffect(() => {
+    if (templ) {
+      setImeProizvoda(templ.ime);
+      setSifraProizvoda(templ.sifra);
+      setCijenaProizvoda(templ.cijena);
+    }
+  }, [templ]);
+  console.log(sugestije);
   return (
-    <article className="h-full w-full  relative flex justify-center items-center">
+    <article className="h-full w-full  relative flex justify-center items-center z-40">
       {" "}
       <button
         className="absolute top-2 right-2 z-20"
@@ -59,18 +92,45 @@ const DodajDugModal = ({
         onSubmit={handleDodajDug}
       >
         <fieldset className="fl h-full w-[80%]">
-          <label className="w-full flex h-[10%] justify-center">
+          <label className="w-full flex h-[10%] justify-center relative">
             <input
               placeholder="Ime proizvoda"
               className="bg-gray-300 w-full h-full rounded-md text-3xl text-center"
-              onChange={(e) => setImeProizvoda(e.target.value)}
+              onChange={(e) => {
+                setImeProizvoda(e.target.value);
+                handleSuggestions(e.target.value);
+              }}
+              value={templ && templ.ime}
             />
+            <div
+              className={
+                pretrazi
+                  ? "absolute bottom-[-400px] h-[400px] w-full z-20"
+                  : "hidden"
+              }
+            >
+              {sugestije &&
+                sugestije.map((product) => {
+                  return (
+                    <div
+                      className="bg-white  text-xl  w-full cursor-pointer hover:bg-slate-600 hover:text-white"
+                      onClick={() => {
+                        setTempl(product);
+                        setPretrazi(product.ime);
+                      }}
+                    >
+                      {product.ime}
+                    </div>
+                  );
+                })}
+            </div>
           </label>
           <label className="w-full flex h-[10%] mt-1 justify-center">
             <input
               placeholder="Šifra proizvoda"
               className="bg-gray-300 w-full h-full rounded-md text-3xl text-center"
               onChange={(e) => setSifraProizvoda(e.target.value)}
+              defaultValue={templ && templ.sifra}
             />
           </label>
           <label className="w-full flex h-[10%] mt-1 justify-center relative">
@@ -80,6 +140,7 @@ const DodajDugModal = ({
               step="0.01"
               className="bg-gray-300 w-full h-full rounded-md text-3xl text-center"
               onChange={(e) => setCijenaProizvoda(e.target.value)}
+              defaultValue={templ && templ.cijena}
             />
             <span className="absolute right-6 text-4xl top-4">€</span>
           </label>

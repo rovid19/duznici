@@ -126,7 +126,7 @@ const editDuznika = ({
     <div className="w-full h-full bg-white absolute top-0 left-0 flex">
       {" "}
       <button
-        className="absolute top-2 right-2 z-50"
+        className="absolute top-2 right-2 z-40"
         onClick={() => {
           setEditDuznika(false);
           setDuznik(null);
@@ -301,7 +301,7 @@ const editDuznika = ({
         >
           <h1 className="text-3xl">
             Ukupno dugovanje: {""}
-            {ukupnoDugovanje}€
+            {ukupnoDugovanje.toFixed(2)}€
           </h1>
         </div>
       ) : (

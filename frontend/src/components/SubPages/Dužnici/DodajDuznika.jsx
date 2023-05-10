@@ -14,7 +14,7 @@ const DodajDuznika = ({ setDodajDuznika, setTrigger, trigger }) => {
   }
 
   return (
-    <main className="h-full w-full justify-center flex items-center bg-black bg-opacity-20 absolute top-0 left-0">
+    <main className="h-full w-full justify-center flex items-center bg-black bg-opacity-50  absolute top-0 left-0">
       <article className="h-[80%] w-[80%] relative bg-white flex justify-center items-center">
         <button
           className="absolute top-2 left-2 z-20"
@@ -24,7 +24,7 @@ const DodajDuznika = ({ setDodajDuznika, setTrigger, trigger }) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-6 h-6"
+            class="w-12 h-12 text-slate-600 hover:text-red-500 transition-all"
           >
             <path
               fill-rule="evenodd"
@@ -35,21 +35,21 @@ const DodajDuznika = ({ setDodajDuznika, setTrigger, trigger }) => {
         </button>
         <form onSubmit={handleDodajDuznika} className="h-full w-full fl">
           <fieldset className="fl w-full h-full relative">
-            <label>
+            <label className="w-full h-[10%] flex justify-center">
               <input
                 placeholder="Ime"
-                className="bg-gray-50 text-center"
+                className="bg-gray-50 text-center w-[80%] h-full rounded-md text-2xl "
                 onChange={(e) => setIme(e.target.value)}
               />
             </label>
-            <label>
+            <label className="w-full h-[10%] flex justify-center">
               <input
                 placeholder="Prezime"
-                className="bg-gray-50 text-center"
+                className="bg-gray-50 text-center w-[80%] h-full mt-1 rounded-md text-2xl"
                 onChange={(e) => setPrezime(e.target.value)}
               />
             </label>
-            <button className="absolute bottom-10 bg-cyan-200 rounded-md text-white w-[30%] h-[10%] text-2xl ">
+            <button className="absolute bottom-10 bg-cyan-200 rounded-md text-white w-[30%] h-[10%] text-2xl hover:bg-slate-600 transition-all">
               Dodaj
             </button>
           </fieldset>

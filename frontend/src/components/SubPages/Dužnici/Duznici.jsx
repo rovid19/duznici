@@ -81,6 +81,8 @@ const Duznici = () => {
     }
   }, [trigger, popisDuznika]);
 
+  console.log(popisDuznika);
+
   return (
     <main className="h-full w-full ">
       <header className="h-[8%] bg-cyan-200 p-2 flex">
@@ -113,7 +115,9 @@ const Duznici = () => {
         <nav className="h-full w-[40%] flex ">
           <ul className="w-full h-full flex">
             <li className="w-[50%] h-full flex justify-left ml-2 items-center bg-white rounded-md p-4">
-              <h1 className="text-xl">Ukupno: {savDug}€</h1>
+              <h1 className="text-xl">
+                Ukupno: {savDug && savDug.toFixed(2)}€
+              </h1>
             </li>
             <li className="w-[50%] flex justify-end ">
               <button
@@ -187,7 +191,7 @@ const Duznici = () => {
                   })}
                 </div>
                 <div className="h-full w-[16%] text-5xl p-2 flex gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 ">
-                  <h1>{duznik.totalDug}€</h1>
+                  <h1>{duznik.totalDug && duznik.totalDug.toFixed(2)}€</h1>
                 </div>
               </article>
             );
