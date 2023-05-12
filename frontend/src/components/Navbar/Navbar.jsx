@@ -17,16 +17,16 @@ const Navbar = () => {
   console.log(korisnik);
 
   return (
-    <div className="h-full w-full bg-cyan-50">
+    <div className="h-full w-full bg-gray-300 shadow-3xl p-2">
       <header className="w-full h-full">
         <div className="h-[20%] flex items-center justify-center">
           <Link to="/">
-            <h1 className="text-5xl">LEVI</h1>
+            <h1 className="text-3xl">LEVI</h1>
           </Link>
         </div>
         <nav className="h-[80%] relative w-full">
           <ul className="h-[20%] fl text-2xl w-full">
-            <li className="w-full text-center bg-cyan-200 p-3 flex items-center justify-center cursor-pointer hover:bg-slate-600 hover:text-white ">
+            <li className="w-full text-center bg-gray-200 p-3 flex items-center justify-center cursor-pointer hover:bg-slate-600 hover:text-white rounded-md h-[40%] text-base">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -44,7 +44,7 @@ const Navbar = () => {
 
               <Link to="/duznici">Dužnici</Link>
             </li>
-            <li className="w-full text-center bg-cyan-200 p-3 flex items-center justify-center cursor-pointer hover:bg-slate-600 hover:text-white mt-1 ">
+            <li className="w-full text-center bg-gray-200 p-3 flex items-center justify-center cursor-pointer hover:bg-slate-600 hover:text-white mt-1 rounded-md h-[40%] text-base">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -65,11 +65,11 @@ const Navbar = () => {
             {korisnik && (
               <li
                 onClick={handleLogout}
-                className="absolute bottom-5 w-full fl"
+                className="absolute bottom-0 w-full fl rounded-md "
               >
                 <h3 className="text-center text-base ">{korisnik.username}</h3>
 
-                <h1 className="w-full text-center bg-cyan-200 p-3 flex items-center justify-center cursor-pointer hover:bg-slate-600 hover:text-white ">
+                <h1 className="w-full text-center bg-gray-200 p-3 flex items-center justify-center cursor-pointer hover:bg-slate-600 hover:text-white rounded-md h-[40%] text-base ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

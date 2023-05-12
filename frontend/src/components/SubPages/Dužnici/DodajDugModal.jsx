@@ -50,10 +50,13 @@ const DodajDugModal = ({
 
   useEffect(() => {
     if (pretrazi) {
+      console.log(pretrazi);
       let array = [...proizvodi];
+
       array = array.filter((product) => {
         const regex = new RegExp(`${pretrazi}`, "gi");
-        return product.ime.match(regex);
+        console.log(product.ime);
+        return product.ime && product.ime.match(regex);
       });
       setSugestije(array);
     }
@@ -110,10 +113,15 @@ const DodajDugModal = ({
               }
             >
               {sugestije &&
-                sugestije.map((product) => {
+                sugestije.map((product, i) => {
                   return (
                     <div
-                      className="bg-white  text-xl  w-full cursor-pointer hover:bg-slate-600 hover:text-white"
+                      key={i}
+                      className={
+                        templ
+                          ? "hidden "
+                          : "bg-white  text-xl  w-full cursor-pointer hover:bg-slate-600 hover:text-white"
+                      }
                       onClick={() => {
                         setTempl(product);
                         setPretrazi(product.ime);
@@ -142,7 +150,7 @@ const DodajDugModal = ({
               onChange={(e) => setCijenaProizvoda(e.target.value)}
               defaultValue={templ && templ.cijena}
             />
-            <span className="absolute right-6 text-4xl top-4">€</span>
+            <span className="absolute right-6 text-3xl top-2">€</span>
           </label>
         </fieldset>
         <button className="bg-slate-600 text-white p-2 rounded-md h-[8%] w-[35%] hover:bg-red-500 transition-all ">

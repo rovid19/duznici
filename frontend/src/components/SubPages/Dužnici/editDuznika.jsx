@@ -147,15 +147,12 @@ const editDuznika = ({
       </button>
       <nav className="h-full w-[10%] bg-cyan-200">
         <ul className="fl2 h-full w-full justify-end relative">
-          <li className="absolute top-2 left-0 text-center w-full text-slate-600 text-3xl">
-            {duznik.ime}
-          </li>
           <li className="absolute top-10 left-0 text-center w-full text-slate-600 text-3xl">
             {duznik.prezime}
           </li>
           <li className="  w-[95%] h-[7%] mb-2">
             <button
-              className="bg-white rounded-md h-full w-full hover:bg-slate-600 hover:text-white transition-all"
+              className="bg-white rounded-md h-full w-full hover:bg-slate-600 hover:text-white transition-all text-sm"
               onClick={() => crnaLista()}
             >
               Crna lista
@@ -163,7 +160,7 @@ const editDuznika = ({
           </li>
           <li className="  w-[95%] h-[7%] mb-2">
             <button
-              className="bg-white rounded-md h-full w-full hover:bg-slate-600 hover:text-white transition-all"
+              className="bg-white rounded-md h-full w-full hover:bg-slate-600 hover:text-white transition-all text-sm"
               onClick={() => setDodajDug(true)}
             >
               Dodaj dug
@@ -171,7 +168,7 @@ const editDuznika = ({
           </li>
           <li className="mb-1 w-[95%] h-[7%]">
             <button
-              className="bg-slate-600 text-white rounded-md h-full w-full hover:bg-red-500 hover:text-white transition-all "
+              className="bg-slate-600 text-white rounded-md h-full w-full hover:bg-red-500 hover:text-white transition-all text-sm"
               onClick={obrisiDuznika}
             >
               Obriši dužnika
@@ -222,8 +219,8 @@ const editDuznika = ({
                 }}
                 className={
                   index === 0
-                    ? "h-[20%] w-full bg-gray-100 rounded-md   flex relative cursor-pointer  "
-                    : "h-[20%] w-full bg-gray-100 rounded-md mt-2 flex relative cursor-pointer  "
+                    ? "h-[30%] w-full bg-gray-100 rounded-md   flex relative cursor-pointer  "
+                    : "h-[30%] w-full bg-gray-100 rounded-md mt-2 flex relative cursor-pointer  "
                 }
               >
                 <button
@@ -247,13 +244,13 @@ const editDuznika = ({
                     />
                   </svg>
                 </button>
-                <div className="h-full w-[50%] p-4 flex items-center justify-start text-4xl border-r-2 border-gray-300 border-opacity-30 relative">
+                <div className="h-full w-[50%] p-4 flex items-center justify-start text-3xl border-r-2 border-gray-300 border-opacity-30 relative">
                   <h2 className="absolute top-2 left-2 text-sm text-gray-300">
                     Naziv proizvoda:
                   </h2>
                   <h1>{duznik.ime}</h1>
                 </div>
-                <div className="h-full w-[20%] p-4 flex items-center justify-start text-4xl border-r-2 border-gray-300 border-opacity-30 relative">
+                <div className="h-full w-[20%] p-4 flex items-center justify-start text-3xl border-r-2 border-gray-300 border-opacity-30 relative">
                   <h2 className="absolute top-2 left-2 text-sm text-gray-300">
                     Pousđena količina:
                   </h2>
@@ -281,7 +278,7 @@ const editDuznika = ({
                     </button>
                   </div>
                 </div>
-                <div className="h-full w-[30%] p-4 flex items-center justify-start text-4xl border-r-2 border-gray-300 border-opacity-30 relative">
+                <div className="h-full w-[30%] p-4 flex items-center justify-start text-3xl border-r-2 border-gray-300 border-opacity-30 relative">
                   <h2 className="absolute top-2 left-2 text-sm text-gray-300">
                     Šifra proizvoda:
                   </h2>
@@ -299,10 +296,13 @@ const editDuznika = ({
               : " absolute w-[90%] right-0 bottom-0 h-[10%] bg-gray-50 p-4 flex items-center"
           }
         >
-          <h1 className="text-3xl">
+          <h1 className="text-2xl w-[50%]">
             Ukupno dugovanje: {""}
             {ukupnoDugovanje.toFixed(2)}€
           </h1>
+          <li className="text-center flex justify-end  text-black text-3xl w-[50%]">
+            <h2 className="text-4xl">{duznik.ime}</h2>
+          </li>
         </div>
       ) : (
         ""

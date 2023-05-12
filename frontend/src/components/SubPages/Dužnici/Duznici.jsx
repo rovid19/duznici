@@ -115,7 +115,7 @@ const Duznici = () => {
         <nav className="h-full w-[40%] flex ">
           <ul className="w-full h-full flex">
             <li className="w-[50%] h-full flex justify-left ml-2 items-center bg-white rounded-md p-4">
-              <h1 className="text-xl">
+              <h1 className="text-base">
                 Ukupno: {savDug && savDug.toFixed(2)}€
               </h1>
             </li>
@@ -125,7 +125,7 @@ const Duznici = () => {
                   setDodajDuznika(true);
                   div.current[0].scrollTop = 0;
                 }}
-                className="h-full w-[70%] bg-white rounded-md text-base hover:bg-slate-600 hover:text-white transition-all"
+                className="h-full w-[70%] bg-white rounded-md text-sm hover:bg-slate-600 hover:text-white transition-all "
               >
                 Dodaj dužnika
               </button>
@@ -177,11 +177,11 @@ const Duznici = () => {
                     : "h-[20%] mt-2 w-full bg-gray-50 cursor-pointer hover:bg-slate-600 hover:text-white transition-all  flex"
                 }
               >
-                <div className="h-full w-[22%] text-5xl p-2 flex gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 ">
+                <div className="h-full w-[22%] text-4xl p-2 flex gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 ">
                   <h1>{duznik.ime}</h1>
                   <h1>{duznik.prezime}</h1>
                 </div>
-                <div className="h-full w-[62%] text-3xl p-2  gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 pt-8">
+                <div className="h-full w-[62%] text-2xl p-2  gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 pt-8">
                   {duznik.popisProizvoda.map((proizvod, index) => {
                     return (
                       <div className="mt-1">
@@ -190,7 +190,7 @@ const Duznici = () => {
                     );
                   })}
                 </div>
-                <div className="h-full w-[16%] text-5xl p-2 flex gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 ">
+                <div className="h-full w-[16%] text-4xl p-2 flex gap-4 items-center ml-6 border-r-2 border-gray-300 border-opacity-30 ">
                   <h1>{duznik.totalDug && duznik.totalDug.toFixed(2)}€</h1>
                 </div>
               </article>
