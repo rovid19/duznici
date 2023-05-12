@@ -108,7 +108,7 @@ const DodajDugModal = ({
             <div
               className={
                 sugestije && sugestije.length > 0
-                  ? "absolute bottom-[-400px] h-[400px] w-full z-20 "
+                  ? "absolute bottom-[-400px] h-[400px] w-full z-20 bg-black"
                   : "hidden"
               }
             >
@@ -124,7 +124,7 @@ const DodajDugModal = ({
                       }
                       onClick={() => {
                         setTempl(product);
-                        setPretrazi(null);
+                        setSugestije(null);
                       }}
                     >
                       {product.ime}
