@@ -107,8 +107,8 @@ const DodajDugModal = ({
             />
             <div
               className={
-                pretrazi
-                  ? "absolute bottom-[-400px] h-[400px] w-full z-20"
+                sugestije && sugestije.length > 0
+                  ? "absolute bottom-[-400px] h-[400px] w-full z-20 "
                   : "hidden"
               }
             >
@@ -124,7 +124,7 @@ const DodajDugModal = ({
                       }
                       onClick={() => {
                         setTempl(product);
-                        setPretrazi(product.ime);
+                        setPretrazi(null);
                       }}
                     >
                       {product.ime}
